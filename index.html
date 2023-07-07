@@ -1,0 +1,505 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Arch Linux 非官方安装教程</title>
+    <meta name="description" content="Hole of ITY">
+    <meta name="keywords" content="blog, thoughts, experiences">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <style>
+      html {
+        height: 100%;
+        font-size: 16px;
+        font-family: "ui-monospace", "SFMono-Regular", "SF Mono", Menlo, Consolas, "Liberation Mono", monospace
+      }
+
+      body {
+        line-height: calc(16px * 1.618);
+        max-width: 80ch;
+        margin: 1rem auto;
+        color: #333;
+        padding: 0 2rem 2rem 2rem;
+        background: #fff;
+      }
+
+      img,
+      video {
+        max-width: 100%;
+        margin: 0.5em 0;
+        border-radius: 8px
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        line-height: 1.25;
+        font-weight: normal;
+        color: #000
+      }
+
+      h1,
+      h2 {
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 0.1em
+      }
+
+      nav {
+        padding: 0.67em 0 calc(0.67em * 2) 0
+      }
+
+      a img {
+        transition: all 0.5s ease
+      }
+
+      a img:hover {
+        border-radius: 0px
+      }
+
+      a {
+        color: #000
+      }
+
+      a:visited {
+        color: #444
+      }
+
+      a:hover {
+        color: #000;
+        text-decoration: none
+      }
+
+      a:focus {
+        color: crimson
+      }
+
+      header,
+      footer {
+        font-size: 14px
+      }
+
+      nav a {
+        margin-right: 2ch;
+        color: #000
+      }
+
+      nav a:visited {
+        color: #000
+      }
+
+      hr {
+        box-sizing: content-box;
+        height: 0;
+        border: 0;
+        border-top: 1px solid #ddd
+      }
+
+      ul,
+      ol {
+        margin-block-start: 0.25em;
+        margin-block-end: 1em;
+        padding-inline-start: 2.5em
+      }
+
+      ul li::marker {
+        content: '- '
+      }
+
+      ul {
+        padding-inline-start: 1.5em
+      }
+
+      code {
+        background: #eff1f3;
+        color: #000;
+        padding: 2px 1ch;
+        border-radius: 6px;
+        font-family: Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace;
+        font-size: 14px
+      }
+
+      pre code {
+        background: transparent;
+        display: block;
+        line-height: 1.25;
+        padding: 1.5em;
+        overflow-x: auto;
+        overflow-y: hidden;
+        border: 1px solid #ddd
+      }
+
+      blockquote {
+        margin-inline-start: 20px;
+        padding-left: 20px;
+        border-left: 2px solid #ddd;
+        font-style: italic
+      }
+
+      table {
+        border-collapse: collapse;
+        max-width: 100%
+      }
+
+      table tr td,
+      table tr th {
+        padding: 0.3em 1ch
+      }
+
+      table tr td {
+        vertical-align: top
+      }
+
+      table tr th {
+        border-bottom: 1px solid #ddd;
+        color: #000;
+        font-weight: normal;
+        text-align: inherit
+      }
+
+      .postlink {
+        line-height: 1.25;
+        white-space: pre-line
+      }
+
+      .postdate {
+        white-space: nowrap;
+        padding: 0;
+        vertical-align: baseline
+      }
+
+      fieldset {
+        border-radius: 6px;
+        border: #333 1px solid;
+        padding: 30px 10px 10px;
+        position: relative;
+      }
+
+      fieldset legend {
+        background: #dce6f5;
+        left: 0;
+        margin: 0;
+        padding: 2px 4px;
+        position: absolute;
+        top: 0;
+      }
+
+      @media(prefers-color-scheme:dark) {
+        body {
+          background-color: #101010;
+          color: #a0aaaf
+        }
+
+        nav a,
+        nav a:visited {
+          color: #d0dadf;
+        }
+
+        nav a:focus {
+          color: #101010
+        }
+
+        a {
+          color: #d0dadf
+        }
+
+        a:visited {
+          color: #808a8f
+        }
+
+        a:hover {
+          background-color: #202325a0;
+          color: #d0dadf
+        }
+
+        a:focus {
+          background-color: #d0dadf;
+          color: #101010
+        }
+
+        hr,
+        table tr th,
+        blockquote {
+          border-color: #808a8f50
+        }
+
+        code,
+        pre code {
+          background-color: transparent;
+          color: #a0aaaf;
+          border: 1px solid #808a8f50
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        table tr th {
+          color: #d0dadf
+        }
+
+        h1,
+        h2 {
+          border-color: #808a8f50
+        }
+
+        fieldset {
+          border: #a0aaaf 1px solid;
+        }
+
+        fieldset legend {
+          background: #57616f;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+     <article>
+     <h1>Arch Linux 非官方安装教程</h1>
+<h2>2023-07-07</h2>
+<h1>介绍</h1>
+<p>Linux 不是系统，而是一种内核。单纯的内核很难进行配置并使用，Linux 发行版因此诞生。Linux 发行版(Linux distros)指的是使用 Linux 内核并且可以开箱即用的系统，并且每个发行版都有自己的特色。常用的发行版有 <code>Debian</code>, <code>Arch Linux</code>, <code>NixOS</code>, <code>Centos</code>等。</p>
+<p>Arch Linux (/ɑːrtʃ/)[6] 是一个独立开发的 x86-64 通用 GNU/Linux 发行版, 采用滚动更新，它有轻量化、简单的特点，因此在个人用户中很受欢迎。</p>
+<p>在接下来的学习中，你将感受到 Linux 及命令行的魅力，体验纯粹、自由、开放的系统体验。但自由意味着要能够控制自己的生活，当你用它们来做重要事情则更是如此。</p>
+<p>下面开始吧！</p>
+<h1>获取系统镜像</h1>
+<blockquote>
+<p>准备一个U盘</p>
+</blockquote>
+<p>Arch Linux 提供了官方的启动盘系统来支持系统的安装。虽然官网提供了种子和磁力链接来下载，但是在国内最好是从高校的开源软件镜像站里下载。下面以中国科学技术大学的镜像站为例：</p>
+<ol>
+<li>打开官网 <a href="https://mirrors.ustc.edu.cn/">https://mirrors.ustc.edu.cn/</a>;</li>
+<li>找到 <strong>获取发行版映像</strong>.
+prdintf(myNum);</li>
+<li>选择安装发行版为 <strong>Archlinux</strong>，并获取ISO文件.</li>
+<li>在 Windows 系统里下载<a href="https://rufus.ie/">Rufus</a>.</li>
+<li>在 <code>Rufus</code> 软件里将系统刻录进U盘.</li>
+</ol>
+<h1>安装前的准备</h1>
+<h2>0.终端编辑器 vim 的使用</h2>
+<pre><code>vim 1.txt    #创建并编辑名为1.txt的文件
+</code></pre>
+<p>此时你处在 vim 的命令模式。在命令模式下，可以用一些快捷指令来对文本进行操作。 现在我们输入<code>a</code>或者<code>i</code>进入 vim 的编辑模式。下面介绍一些在命令模式下常用的命令:</p>
+<pre><code>:w    # 保存
+:wq    # 保存退出
+:q!    # 不保存，强制退出
+dd    # 删除一行
+2dd    # 删除两行
+gg    # 回到文本第一行
+shift+g    # 转到文本最后一行
+/xxx    # 在文中搜索内容'xxx' 回车搜索，按n键转到下一个
+?xxx    # 反向搜索
+u    # 撤销修改
+</code></pre>
+<p>按下v键进入选择模式，按y键完成拷贝，按p执行粘贴。</p>
+<blockquote>
+<p>需要完整教程的读者可以在终端中输入命令vimtutor来学习完整的 vim 教程。</p>
+</blockquote>
+<h2>1.进入主板 BIOS 进行设置</h2>
+<p>插入U盘并开机。在开机的时候，按 F2/F8/F10/DEL 等(取决与你的主板型号，具体请查阅你主板的相关信息)按键，进入主板的 BIOS 设置界面。</p>
+<p>在类似名为 security 的选项卡中，找到一项名为 Secure Boot(名称可能略有差异)的选项，选择 Disable 将其禁用。</p>
+<p>最后保存 BIOS 设置并退出，一般的按键是 F10。</p>
+<h2>2.准备安装</h2>
+<p>按 F12 (取决与你的主板型号，具体请查阅你主板的相关信息)按键，选择你的U盘。</p>
+<h1>基础安装</h1>
+<h2>0.连接网络</h2>
+<p>对于有线连接来说，直接插入网线即可。</p>
+<p>对于无线连接，则需进行如下操作进行网络连接：</p>
+<p>输入 <code>iwctl</code> 进入控制台。</p>
+<pre><code>device list    #列出设备名，比如无线网卡看到叫 wlan0
+station wlan0 scan    #扫描网络
+station wlan0 get-networks    #列出网络 比如想连接YOUR-WIRELESS-NAME这个无线
+station wlan0 connect YOUR-WIRELESS-NAME    #进行连接 输入密码即可
+exit    #成功后exit退出
+</code></pre>
+<pre><code>ping www.gnu.org  # 测试网络连接
+</code></pre>
+<h2>1.分区</h2>
+<p>这里总共设置两个分区，是一个常用的方案。</p>
+<ul>
+<li>EFI 分区： /efi 512MB</li>
+<li>根目录： / 剩余全部</li>
+</ul>
+<p>如果你使用 NVME 的固态硬盘，磁盘名称可能为<code>nvme0n1</code>。</p>
+<p>输入<code>lsblk</code>显示分区情况找到你想安装的磁盘名称。下面以<code>nvme0n1</code>来演示。</p>
+<pre><code>parted /dev/nvme0n1 -- mklabel gpt    # 将磁盘类型转换为gpt, 如磁盘有数据会警告，输入yes即可
+parted /dev/nvme0n1 -- mkpart primary 512MB 100%    # 根目录分区
+parted /dev/nvme0n1 -- mkpart ESP fat32 1MB 512MB    # EFI 分区
+parted /dev/nvme0n1 -- set 3 esp on    # 设置第三个分区（即刚创建的 EFI 分区）为 EFI system partition (ESP)
+</code></pre>
+<h2>2.格式化</h2>
+<pre><code>mkfs.f2fs -l arch /dev/nvme0n1p1    # 格式化根目录为``f2fs``文件系统
+mkfs.fat -F 32 -n boot /dev/nvme0n1p2    # 格式化efi分区
+</code></pre>
+<h2>3.挂载</h2>
+<p>在挂载时，挂载是有顺序的，先挂载根分区，再挂载 EFI 分区。</p>
+<pre><code>mount /dev/disk/by-label/arch  /mnt
+mkdir /mnt/boot
+mount /dev/disk/by-label/boot /mnt/boot
+</code></pre>
+<h2>4.设定镜像源</h2>
+<ol>
+<li>手动设置</li>
+</ol>
+<pre><code>rm /etc/pacman.d/mirrorlist 
+cat &gt; /etc/pacman.d/mirrorlist &lt;&lt; EOF
+&gt; Server = https://mirrors.ustc.edu.cn/archlinux/$repo/os/$arch    # 这里填的是中科大的镜像. &quot;&gt;&quot; 不需要打
+&gt; EOF
+</code></pre>
+<ol start="2">
+<li>自动设置</li>
+</ol>
+<pre><code>reflector --country China --age 72 --sort rate --protocol https --save /etc/pacman.d/mirrorlist
+</code></pre>
+<p>完成后输入<code>pacman -Sy</code>更新本地的包数据库。</p>
+<h2>5.安装系统</h2>
+<pre><code>pacstrap /mnt base base-devel linux linux-headers linux-firmware git vim intel-ucode f2fs-tools networkmanager alsa-utils pipewire-pulse wqy-zenhei
+</code></pre>
+<p>如果电脑使用AMD芯片，则将<code>intel-ucode</code>改成<code>amd-ucode</code>。</p>
+<p>你可以在 <code>/etc/pacman.conf</code> 配置文件中将 <code>#ParallelDownloads = 5</code> 中的注释<code>#</code>去掉以开启多线程下载。</p>
+<h2>6.生成 fstab 文件</h2>
+<p>fstab 用来定义磁盘分区。</p>
+<pre><code>genfstab -U /mnt &gt;&gt; /mnt/etc/fstab
+</code></pre>
+<h2>7.切换环境到新系统</h2>
+<pre><code>arch-chroot /mnt
+</code></pre>
+<h2>8.本地化</h2>
+<p>如下设置上海时区:</p>
+<pre><code>ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+</code></pre>
+<p>设置语言：</p>
+<pre><code>vim /etc/locale.gen    # 输入“/”可以搜索，比如/en_US，按下回车可以确定搜索内容.
+locale-gen
+echo &quot;LANG=en_US.UTF-8&quot; &gt; /etc/locale.conf
+</code></pre>
+<h2>9.设置主机名</h2>
+<p>加入你想为主机取的主机名，这里比如叫 <code>arch</code>。</p>
+<pre><code>echo &quot;arch&quot; &gt; /etc/hostname
+</code></pre>
+<h2>10.配置hosts</h2>
+<pre><code>vim /etc/hosts
+# 加入如下内容
+127.0.0.1   localhost
+::1         localhost
+127.0.1.1   arch
+</code></pre>
+<h2>12.创建新用户</h2>
+<pre><code>useradd -m -G wheel -s /bin/bash alice
+</code></pre>
+<p><code>-m</code>: 这个属性会在没有用户文件夹时创建用户文件夹。文中这将给用户 “alice” 创建位于 <code>/home/alice</code>的用户文件夹。</p>
+<p><code>=G wheel</code>： 将用户添加到“wheel“组。</p>
+<p><code>-s /bin/bash</code>: 设置登录的shell程序。</p>
+<h2>13.设置用户密码</h2>
+<pre><code>passwd root
+#    请输入root的密码
+
+passwd alice
+#    请输入新建用户的密码
+</code></pre>
+<h2>14.给用户设置sudo执行权限</h2>
+<pre><code>EDITOR=vim visudo
+#    找到下面这样的一行，把前面的注释符号 # 去掉，:wq 保存并退出即可
+#    %wheel ALL=(ALL:ALL) ALL
+</code></pre>
+<h2>15.配置引导程序</h2>
+<p>创建 EFI 引导</p>
+<pre><code>bootctl install
+</code></pre>
+<p>编辑 EFI 引导内容</p>
+<pre><code>vim /boot/loader/loader.conf 
+#    内容如下：
+#    default arch
+#    timeout 0
+#    console-mode max
+#    editor no
+</code></pre>
+<p>Arch Linux 启动项配置</p>
+<pre><code>vim /boot/loader/entries/arch.conf
+#    内容如下：
+#    title       Arch Linux
+#    linux       /vmlinuz-linux
+#    initrd      /amd-ucode.img
+#    initrd      /initramfs-linux.img
+#    options     root=LABEL=arch rw quiet splash vt.global_cursor_default=0
+</code></pre>
+<h2>16.更新内核时自动更新efi分区</h2>
+<pre><code>mkdir /etc/pacman.d/hooks
+vim /etc/pacman.d/hooks/100-systemd-boot.hooks
+#    输入一下内容:
+#    [Trigger]
+#    Type = Package
+#    Operation = Upgrade
+#    Target = systemd
+#    
+#    [Action]
+#    Description = Gracefully upgrading systemd-boot...
+#    When = PostTransaction
+#    Exec = /usr/bin/systemctl restart systemd-boot-update.service
+</code></pre>
+<p>系统安装部分已经结束，请输入<code>exit</code>退出新系统再输入<code>reboot</code>之后拔掉U盘进入新系统。</p>
+<h1>系统配置</h1>
+<p>进入系统后，输入<code>root</code>并再输入root的密码以登录root用户。</p>
+<h2>0.配置网络</h2>
+<pre><code>systemctl enable NetworkManager --now    # 开启网络管理器服务
+nmcli dev wifi connect YOUR-WIRELESS-NAME password ********    # 请将&quot;YOUR-WIRELESS-NAME&quot;和&quot;********&quot;分别更换成你的WiFi名和密码
+</code></pre>
+<pre><code>ping www.gnu.org    # 测试网络是否连通
+</code></pre>
+<h2>1.配置自定义镜像源</h2>
+<p>编辑 <code>/etc/pacman.conf</code>，并在文章最末尾加入以下内容：</p>
+<pre><code>[archlinuxcn]
+Server = https://mirrors.ustc.edu.cn/archlinuxcn/$arch
+</code></pre>
+<p>导入 GPG 签名以防止软件因为签名问题安装失败：</p>
+<pre><code>pacman -Sy
+pacman -S archlinuxcn-keyring
+</code></pre>
+<h2>2.安装 AUR 助手</h2>
+<p>AUR 助手可以帮助安装非官方镜像站提供的安装包，比如<code>QQ</code>。</p>
+<pre><code class="language-ParallelDownloads">
+pacman -S paru
+</code></pre>
+<h2>3.安装 Hyprland 桌面以及相关插件</h2>
+<pre><code>paru -S hyprland waybar rofi brightnessctl kitty hyprpaper
+</code></pre>
+<h2>4.配置显示管理器</h2>
+<pre><code>paru -S ly
+systemctl enable ly
+</code></pre>
+<p>输入<code>reboot</code>重启电脑。</p>
+<p>重启输入新建用户的用户名和密码，进入桌面，并按<strong>super</strong>键和<strong>Q</strong>键打开终端。</p>
+<h2>5.配置桌面</h2>
+<pre><code>git clone https://github.com/ityspace/config.git    # 速度如果较慢可把链接改成 &quot;https://ghproxy.com/https://ityspace/config.git&quot;
+mkdir -p ~/.local/share
+mkdir ~/Pictures
+cd config
+cp -r fcitx5 hypr kitty rofi waybar ~/.config
+cp -r fonts icons ~/.config/share
+cp wallpaper.png ~/Pictures
+</code></pre>
+<p>现在可以正常使用啦～</p>
+<p>Footnote</p>
+<hr>
+<ul>
+<li><a href="https://https://archlinux.org/">Arch Linux官方网站</a></li>
+<li><a href="https://mirrors.ustc.edu.cn/">中科大镜像站</a></li>
+<li><a href="https://rufus.ie/">Rufus官网</a></li>
+</ul>
+
+     </article>
+    </main>
+    <footer>
+      <br>
+      <hr>
+      <p>No Copyright</p>
+      <p>Public Domain Mark 1.0</p>
+    </footer>
+  </body>
+</html>
+        
