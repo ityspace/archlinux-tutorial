@@ -1,8 +1,8 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
   <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <title>Arch Linux 非官方安装教程</title>
     <meta name="description" content="Hole of ITY">
     <meta name="keywords" content="blog, thoughts, experiences">
@@ -374,7 +374,7 @@ cat &gt; /etc/pacman.d/mirrorlist &lt;&lt; EOF
 <pre><code>ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 </code></pre>
 <p>设置语言：</p>
-<pre><code>vim /etc/locale.gen    # 输入“/”可以搜索，比如/en_US，按下回车可以确定搜索内容.
+<pre><code>vim /etc/locale.gen    # 删除"#en_US.UTF-8 UTF-8"和"#zh_CN.UTF-8 UTF-8"的"#"以取消注释. 命令模式下输入“/”可以搜索，比如/en_US，按下回车可以确定搜索内容.
 locale-gen
 echo &quot;LANG=en_US.UTF-8&quot; &gt; /etc/locale.conf
 </code></pre>
