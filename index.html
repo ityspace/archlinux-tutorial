@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="zh">
   <head>
@@ -264,7 +263,7 @@
 <h2>2023-07-07</h2>
 <h1>介绍</h1>
 <p>Linux 不是系统，而是一种内核。单纯的内核很难进行配置并使用，Linux 发行版因此诞生。Linux 发行版(Linux distros)指的是使用 Linux 内核并且可以开箱即用的系统，并且每个发行版都有自己的特色。常用的发行版有 <code>Debian</code>, <code>Arch Linux</code>, <code>NixOS</code>, <code>Centos</code>等。</p>
-<p>Arch Linux (/ɑːrtʃ/)[6] 是一个独立开发的 x86-64 通用 GNU/Linux 发行版, 采用滚动更新，它有轻量化、简单的特点，因此在个人用户中很受欢迎。</p>
+<p>Arch Linux 是一个独立开发的 x86-64 通用 GNU/Linux 发行版, 采用滚动更新，它有轻量化、简单的特点，因此在个人用户中很受欢迎。</p>
 <p>在接下来的学习中，你将感受到 Linux 及命令行的魅力，体验纯粹、自由、开放的系统体验。但自由意味着要能够控制自己的生活，当你用它们来做重要事情则更是如此。</p>
 <p>下面开始吧！</p>
 <h1>获取系统镜像</h1>
@@ -274,10 +273,9 @@
 <p>Arch Linux 提供了官方的启动盘系统来支持系统的安装。虽然官网提供了种子和磁力链接来下载，但是在国内最好是从高校的开源软件镜像站里下载。下面以中国科学技术大学的镜像站为例：</p>
 <ol>
 <li>打开官网 <a href="https://mirrors.ustc.edu.cn/">https://mirrors.ustc.edu.cn/</a>;</li>
-<li>找到 <strong>获取发行版映像</strong>.
-prdintf(myNum);</li>
+<li>找到 <strong>获取发行版映像</strong>.</li>
 <li>选择安装发行版为 <strong>Archlinux</strong>，并获取ISO文件.</li>
-<li>在 Windows 系统里下载<a href="https://rufus.ie/">Rufus</a>.</li>
+<li>在 Windows 系统里下载<a href="httpur.gits://rufus.ie/">Rufus</a>.</li>
 <li>在 <code>Rufus</code> 软件里将系统刻录进U盘.</li>
 </ol>
 <h1>安装前的准备</h1>
@@ -333,7 +331,7 @@ parted /dev/nvme0n1 -- mkpart ESP fat32 1MB 512MB    # EFI 分区
 parted /dev/nvme0n1 -- set 3 esp on    # 设置第三个分区（即刚创建的 EFI 分区）为 EFI system partition (ESP)
 </code></pre>
 <h2>2.格式化</h2>
-<pre><code>mkfs.f2fs -l arch /dev/nvme0n1p1    # 格式化根目录为``f2fs``文件系统
+<pre><code>mkfs.f2fs -l arch /dev/nvme0n1p1    # 格式化根目录为f2fs文件系统
 mkfs.fat -F 32 -n boot /dev/nvme0n1p2    # 格式化efi分区
 </code></pre>
 <h2>3.挂载</h2>
@@ -389,25 +387,25 @@ echo &quot;LANG=en_US.UTF-8&quot; &gt; /etc/locale.conf
 ::1         localhost
 127.0.1.1   arch
 </code></pre>
-<h2>12.创建新用户</h2>
+<h2>11.创建新用户</h2>
 <pre><code>useradd -m -G wheel -s /bin/bash alice
 </code></pre>
 <p><code>-m</code>: 这个属性会在没有用户文件夹时创建用户文件夹。文中这将给用户 “alice” 创建位于 <code>/home/alice</code>的用户文件夹。</p>
 <p><code>=G wheel</code>： 将用户添加到“wheel“组。</p>
 <p><code>-s /bin/bash</code>: 设置登录的shell程序。</p>
-<h2>13.设置用户密码</h2>
+<h2>12.设置用户密码</h2>
 <pre><code>passwd root
 #    请输入root的密码
 
 passwd alice
 #    请输入新建用户的密码
 </code></pre>
-<h2>14.给用户设置sudo执行权限</h2>
+<h2>13.给用户设置sudo执行权限</h2>
 <pre><code>EDITOR=vim visudo
 #    找到下面这样的一行，把前面的注释符号 # 去掉，:wq 保存并退出即可
 #    %wheel ALL=(ALL:ALL) ALL
 </code></pre>
-<h2>15.配置引导程序</h2>
+<h2>14.配置引导程序</h2>
 <p>创建 EFI 引导</p>
 <pre><code>bootctl install
 </code></pre>
@@ -428,7 +426,7 @@ passwd alice
 #    initrd      /initramfs-linux.img
 #    options     root=LABEL=arch rw quiet splash vt.global_cursor_default=0
 </code></pre>
-<h2>16.更新内核时自动更新efi分区</h2>
+<h2>15.更新内核时自动更新efi分区</h2>
 <pre><code>mkdir /etc/pacman.d/hooks
 vim /etc/pacman.d/hooks/100-systemd-boot.hooks
 #    输入内容:
