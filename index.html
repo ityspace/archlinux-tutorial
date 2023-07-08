@@ -442,7 +442,7 @@ vim /etc/pacman.d/hooks/100-systemd-boot.hooks
 </code></pre>
 <p>系统安装部分已经结束，请输入<code>exit</code>退出新系统再输入<code>reboot</code>之后拔掉U盘进入新系统。</p>
 <h1>系统配置</h1>
-<p>进入系统后，输入<code>root</code>并再输入root的密码以登录root用户。</p>
+<p>进入系统后，输入<code>root</code>并再输入root密码以登录root用户。</p>
 <h2>0.配置网络</h2>
 <pre><code>systemctl enable NetworkManager --now    # 开启网络管理器服务
 nmcli dev wifi connect YOUR-WIRELESS-NAME password ********    # 请将&quot;YOUR-WIRELESS-NAME&quot;和&quot;********&quot;分别更换成你的WiFi名和密码
@@ -450,7 +450,7 @@ nmcli dev wifi connect YOUR-WIRELESS-NAME password ********    # 请将&quot;YOU
 <pre><code>ping www.gnu.org    # 测试网络是否连通
 </code></pre>
 <h2>1.配置自定义镜像源</h2>
-<p>编辑 <code>/etc/pacman.conf</code>，并在文章最末尾加入以下内容：</p>
+<p>编辑 <code>/etc/pacman.conf</code>，并在最末尾加入以下内容：</p>
 <pre><code>[archlinuxcn]
 Server = https://mirrors.ustc.edu.cn/archlinuxcn/$arch
 </code></pre>
