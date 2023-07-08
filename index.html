@@ -329,7 +329,7 @@ exit    #成功后exit退出
 <pre><code>parted /dev/nvme0n1 -- mklabel gpt    # 将磁盘类型转换为gpt, 如磁盘有数据会警告，输入yes即可
 parted /dev/nvme0n1 -- mkpart primary 512MB 100%    # 根目录分区
 parted /dev/nvme0n1 -- mkpart ESP fat32 1MB 512MB    # EFI 分区
-parted /dev/nvme0n1 -- set 3 esp on    # 设置第三个分区（即刚创建的 EFI 分区）为 EFI system partition (ESP)
+parted /dev/nvme0n1 -- set 2 esp on    # 设置 EFI system partition (ESP)
 </code></pre>
 <h2>2.格式化</h2>
 <pre><code>mkfs.f2fs -l arch /dev/nvme0n1p1    # 格式化根目录为f2fs文件系统
