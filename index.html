@@ -345,10 +345,8 @@ mount /dev/disk/by-label/boot /mnt/boot
 <ol>
 <li>手动设置</li>
 </ol>
-<pre><code>rm /etc/pacman.d/mirrorlist 
-cat &gt; /etc/pacman.d/mirrorlist &lt;&lt; EOF
-&gt; Server = https://mirrors.ustc.edu.cn/archlinux/$repo/os/$arch    # 这里填的是中科大的镜像. &quot;&gt;&quot; 不需要打
-&gt; EOF
+<pre><code>
+echo "Server = https://mirrors.ustc.edu.cn/archlinux/$repo/os/$arch" > /etc/pacman.d/mirrorlist  # 这里填的是中科大的镜像.
 </code></pre>
 <ol start="2">
 <li>自动设置</li>
