@@ -474,12 +474,12 @@ systemctl enable ly
 <p>输入<code>reboot</code>重启电脑。</p>
 <p>重启输入新建用户的用户名和密码，进入桌面，并按<strong>super</strong>键和<strong>Q</strong>键打开终端。</p>
 <h2>5.配置桌面</h2>
-<pre><code>git clone https://github.com/ityspace/config.git    # 速度如果较慢可把链接改成 &quot;https://ghproxy.com/https://ityspace/config.git&quot;
+<pre><code>git clone https://github.com/ityspace/config.git    # 速度如果较慢可把链接改成 &quot;https://ghproxy.com/https://github.com/ityspace/config.git&quot;
 mkdir -p ~/.local/share
 mkdir ~/Pictures
 cd config
 cp -r fcitx5 hypr kitty rofi waybar ~/.config
-cp -r fonts icons ~/.config/share
+cp -r fonts icons ~/.local/share
 cp wallpaper.png ~/Pictures
 </code></pre>
 <p>现在可以正常使用啦～</p>
