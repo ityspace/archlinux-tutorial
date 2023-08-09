@@ -270,10 +270,10 @@
 <blockquote>
 <p>准备一个U盘</p>
 </blockquote>
-<p>Arch Linux 提供了官方的启动盘系统来支持系统的安装。虽然官网提供了种子和磁力链接来下载，但是在国内最好是从高校的开源软件镜像站里下载。下面以中国科学技术大学的镜像站为例：</p>
+<p>Arch Linux 提供了官方的启动盘系统来支持系统的安装。虽然官网提供了种子和磁力链接来下载，但是在国内最好是从高校的开源软件镜像站里下载。下面以清华大学的镜像站为例：</p>
 <ol>
-<li>打开官网 <a href="https://mirrors.ustc.edu.cn/">https://mirrors.ustc.edu.cn/</a></li>
-<li>找到 <strong>获取发行版映像</strong></li>
+<li>打开官网 <a href="https://mirrors.tuna.tsinghua.edu.cn/">https://mirrors.tuna.tsinghua.edu.cn/</a></li>
+<li>找到 <strong>获取下载链接</strong></li>
 <li>选择安装发行版为 <strong>Archlinux</strong>，并获取ISO文件</li>
 <li>在 Windows 系统里下载<a href="httpur.gits://rufus.ie/">Rufus</a></li>
 <li>在 <code>Rufus</code> 软件里将系统刻录进U盘</li>
@@ -351,7 +351,7 @@ mount /dev/disk/by-label/boot /mnt/boot
 <li>手动设置</li>
 </ol>
 <pre><code>
-echo "Server = https://mirrors.ustc.edu.cn/archlinux/$repo/os/$arch" > /etc/pacman.d/mirrorlist  # 这里填的是中科大的镜像.
+echo "Server = https://mirrors.tuna.tsinghua.edu.cn/archlinux/$repo/os/$arch" > /etc/pacman.d/mirrorlist  # 这里填的是中科大的镜像.
 </code></pre>
 <ol start="2">
 <li>自动设置</li>
@@ -374,6 +374,10 @@ echo "Server = https://mirrors.ustc.edu.cn/archlinux/$repo/os/$arch" > /etc/pacm
 <h2>8.本地化</h2>
 <p>如下设置上海时区:</p>
 <pre><code>ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+</code></pre>
+<p>更新硬件时间</p>
+<pre><code>
+hwclock --systohc
 </code></pre>
 <p>设置语言：</p>
 <pre><code>vim /etc/locale.gen    # 删除"#en_US.UTF-8 UTF-8"和"#zh_CN.UTF-8 UTF-8"的"#"以取消注释. 命令模式下输入“/”可以搜索，比如/en_US，按下回车可以确定搜索内容.
@@ -431,18 +435,8 @@ passwd alice
 #    options     root=LABEL=arch rw quiet splash vt.global_cursor_default=0
 </code></pre>
 <h2>15.更新内核时自动更新efi分区</h2>
-<pre><code>mkdir /etc/pacman.d/hooks
-vim /etc/pacman.d/hooks/100-systemd-boot.hooks
-#    输入内容:
-#    [Trigger]
-#    Type = Package
-#    Operation = Upgrade
-#    Target = systemd
-#    
-#    [Action]
-#    Description = Gracefully upgrading systemd-boot...
-#    When = PostTransaction
-#    Exec = /usr/bin/systemctl restart systemd-boot-update.service
+<pre><code>
+systemctl enable systemd-boot-update
 </code></pre>
 <p>系统安装部分已经结束，请输入<code>exit</code>退出新系统再输入<code>reboot</code>之后拔掉U盘进入新系统。</p>
 <h1>系统配置</h1>
