@@ -347,7 +347,7 @@ mount --mkdir /dev/disk/by-label/boot /mnt/boot
 <li>手动设置</li>
 </ol>
 <pre><code>
-echo "Server = https://mirrors.tuna.tsinghua.edu.cn/archlinux/$repo/os/$arch" > /etc/pacman.d/mirrorlist  # 这里填的是清华的镜像.
+echo 'Server = https://mirrors.tuna.tsinghua.edu.cn/archlinux/$repo/os/$arch' > /etc/pacman.d/mirrorlist  # 这里填的是清华的镜像.
 </code></pre>
 <ol start="2">
 <li>自动设置</li>
@@ -376,11 +376,11 @@ echo "Server = https://mirrors.tuna.tsinghua.edu.cn/archlinux/$repo/os/$arch" > 
 <p>设置语言：</p>
 <pre><code>vim /etc/locale.gen    # 删除"#en_US.UTF-8 UTF-8"和"#zh_CN.UTF-8 UTF-8"的"#"以取消注释. 命令模式下输入“/”可以搜索，比如/en_US，按下回车可以确定搜索内容.
 locale-gen
-echo &quot;LANG=en_US.UTF-8&quot; &gt; /etc/locale.conf
+echo 'LANG=en_US.UTF-8' &gt; /etc/locale.conf
 </code></pre>
 <h2>9.设置主机名</h2>
 <p>加入你想为主机取的主机名，这里比如叫 <code>arch</code>。</p>
-<pre><code>echo &quot;arch&quot; &gt; /etc/hostname
+<pre><code>echo 'arch' &gt; /etc/hostname
 </code></pre>
 <h2>10.配置hosts</h2>
 <pre><code>vim /etc/hosts
