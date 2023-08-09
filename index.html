@@ -260,12 +260,11 @@
     <main>
      <article>
      <h1>Arch Linux Installation Tutorial</h1>
-<h2>2023-07-07</h2>
+<h2>2023-08-09</h2>
 <h1>介绍</h1>
 <p>Linux 不是系统，而是一种内核。单纯的内核很难进行配置并使用，Linux 发行版因此诞生。Linux 发行版(Linux distros)指的是使用 Linux 内核并且可以开箱即用的系统，并且每个发行版都有自己的特色。常用的发行版有 <code>Debian</code>, <code>Arch Linux</code>, <code>NixOS</code>, <code>Centos</code>等。</p>
 <p>Arch Linux 是一个独立开发的 x86-64 通用 GNU/Linux 发行版, 采用滚动更新，它有轻量化、简单的特点，因此在个人用户中很受欢迎。</p>
 <p>在接下来的学习中，你将感受到 Linux 及命令行的魅力，体验纯粹、自由、开放的系统体验。但自由意味着要能够控制自己的生活，当你用它们来做重要事情则更是如此。</p>
-<p>下面开始吧！</p>
 <h1>获取系统镜像</h1>
 <blockquote>
 <p>准备一个U盘</p>
@@ -297,7 +296,7 @@ u    # 撤销修改
 </code></pre>
 <p>按下v键进入选择模式，按y键完成拷贝，按p执行粘贴。</p>
 <p>按下i键就可以进入插入模式，输入的文本会插入在光标后面。当我们编辑完成后，可以按 ESC 键回到命令模式，输入<code>:wq</code>再回车即可保存并退出编辑器。</p>
-<h2>nano</h2>
+<h2>NANO</h2>
 <p>nano 被大多数 Linux 发行版内置。nano 十分简单，只要看软件内提示的快捷键就可以掌握。不熟悉 VIM 的可以用 nano 完成本教程。</p>
 <blockquote>
 <p>需要完整教程的读者可以在终端中输入命令vimtutor来学习完整的 vim 教程。</p>
@@ -343,15 +342,14 @@ mkfs.fat -F 32 -n boot /dev/nvme0n1p2    # 格式化efi分区
 <h2>3.挂载</h2>
 <p>在挂载时，挂载是有顺序的，先挂载根分区，再挂载 EFI 分区。</p>
 <pre><code>mount /dev/disk/by-label/arch  /mnt
-mkdir /mnt/boot
-mount /dev/disk/by-label/boot /mnt/boot
+mount --mkdir /dev/disk/by-label/boot /mnt/boot
 </code></pre>
 <h2>4.设定镜像源</h2>
 <ol>
 <li>手动设置</li>
 </ol>
 <pre><code>
-echo "Server = https://mirrors.tuna.tsinghua.edu.cn/archlinux/$repo/os/$arch" > /etc/pacman.d/mirrorlist  # 这里填的是中科大的镜像.
+echo "Server = https://mirrors.tuna.tsinghua.edu.cn/archlinux/$repo/os/$arch" > /etc/pacman.d/mirrorlist  # 这里填的是清华的镜像.
 </code></pre>
 <ol start="2">
 <li>自动设置</li>
@@ -363,7 +361,7 @@ echo "Server = https://mirrors.tuna.tsinghua.edu.cn/archlinux/$repo/os/$arch" > 
 <pre><code>pacstrap /mnt base base-devel linux linux-headers linux-firmware git vim intel-ucode f2fs-tools networkmanager alsa-utils pipewire-pulse wqy-zenhei
 </code></pre>
 <p>如果电脑使用AMD芯片，则将<code>intel-ucode</code>改成<code>amd-ucode</code>。</p>
-<p>你可以在 <code>/etc/pacman.conf</code> 配置文件中将 <code>#ParallelDownloads = 5</code> 中的注释<code>#</code>去掉以开启多线程下载。</p>
+<p>(可选)你可以在 <code>/etc/pacman.conf</code> 配置文件中将 <code>#ParallelDownloads = 5</code> 中的注释<code>#</code>去掉以开启多线程下载。</p>
 <h2>6.生成 fstab 文件</h2>
 <p>fstab 用来定义磁盘分区。</p>
 <pre><code>genfstab -U /mnt &gt;&gt; /mnt/etc/fstab
@@ -376,9 +374,7 @@ echo "Server = https://mirrors.tuna.tsinghua.edu.cn/archlinux/$repo/os/$arch" > 
 <pre><code>ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 </code></pre>
 <p>更新硬件时间</p>
-<pre><code>
-hwclock --systohc
-</code></pre>
+<pre><code>hwclock --systohc</code></pre>
 <p>设置语言：</p>
 <pre><code>vim /etc/locale.gen    # 删除"#en_US.UTF-8 UTF-8"和"#zh_CN.UTF-8 UTF-8"的"#"以取消注释. 命令模式下输入“/”可以搜索，比如/en_US，按下回车可以确定搜索内容.
 locale-gen
@@ -435,9 +431,7 @@ passwd alice
 #    options     root=LABEL=arch rw quiet splash vt.global_cursor_default=0
 </code></pre>
 <h2>15.更新内核时自动更新efi分区</h2>
-<pre><code>
-systemctl enable systemd-boot-update
-</code></pre>
+<pre><code>systemctl enable systemd-boot-update</code></pre>
 <p>系统安装部分已经结束，请输入<code>exit</code>退出新系统再输入<code>reboot</code>之后拔掉U盘进入新系统。</p>
 <h1>系统配置</h1>
 <p>进入系统后，输入<code>root</code>并再输入root密码以登录root用户。</p>
@@ -458,9 +452,7 @@ pacman -S archlinuxcn-keyring
 </code></pre>
 <h2>2.安装 AUR 助手</h2>
 <p>AUR 助手可以帮助安装非官方镜像站提供的安装包，比如<code>QQ</code>。</p>
-<pre><code class="language-ParallelDownloads">
-pacman -S paru
-</code></pre>
+<pre><code class="language-ParallelDownloads">pacman -S paru</code></pre>
 <h2>3.安装 Hyprland 桌面以及相关插件</h2>
 <pre><code>paru -S hyprland waybar rofi brightnessctl kitty hyprpaper
 </code></pre>
