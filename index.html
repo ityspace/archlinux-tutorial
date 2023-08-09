@@ -393,7 +393,7 @@ echo &quot;LANG=en_US.UTF-8&quot; &gt; /etc/locale.conf
 <pre><code>useradd -m -G wheel -s /bin/bash alice
 </code></pre>
 <p><code>-m</code>: 这个属性会在没有用户文件夹时创建用户文件夹。文中这将给用户 “alice” 创建位于 <code>/home/alice</code>的用户文件夹。</p>
-<p><code>=G wheel</code>： 将用户添加到“wheel“组。</p>
+<p><code>-G wheel</code>： 将用户添加到“wheel“组。</p>
 <p><code>-s /bin/bash</code>: 设置登录的shell程序。</p>
 <h2>12.设置用户密码</h2>
 <pre><code>passwd root
